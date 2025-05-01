@@ -16,7 +16,9 @@ SYSTEM = SystemMessage(
 
 def main():
     model = ChatOpenAI(
-        model_name="openai/gpt-4.1",
+        model_name="ibm-granite/granite-vision-3.2-2b",
+        openai_api_base="http://127.0.0.1:8000/v1",
+        openai_api_key="dummy",
     ).with_structured_output(Animal)
 
     print(
