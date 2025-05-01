@@ -1,6 +1,10 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
+
 from pydantic import BaseModel, Field
+
+import base64
+from pathlib import Path
 
 
 class Animal(BaseModel):
@@ -16,8 +20,8 @@ SYSTEM = SystemMessage(
 
 def main():
     model = ChatOpenAI(
-        model_name="ibm-granite/granite-vision-3.2-2b",
-        openai_api_base="http://127.0.0.1:8000/v1",
+        model_name="granite3.2-vision",
+        openai_api_base="http://localhost:11434/v1",
         openai_api_key="dummy",
     ).with_structured_output(Animal)
 
@@ -33,8 +37,9 @@ def main():
                         },
                         {
                             "type": "image",
-                            "source_type": "url",
-                            "url": "https://cataas.com/cat",
+                            "source_type": "base64",
+                            "data": base64.b64encode(Path("/tmp/cat.jpg").read_bytes()).decode(),
+                            "mime_type": "image/jpeg",
                         },
                     ]
                 ),
