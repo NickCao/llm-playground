@@ -21,6 +21,7 @@ SYSTEM = SystemMessage(
 def main():
     model = ChatOpenAI(
         model_name="granite3.2-vision",
+        temperature=0,
         openai_api_base="http://localhost:11434/v1",
         openai_api_key="dummy",
     ).with_structured_output(Animal)
@@ -33,7 +34,7 @@ def main():
                     content=[
                         {
                             "type": "text",
-                            "text": "Describe the breed and species of the animal in this image",
+                            "text": "Describe the breed and species of the animal in this image, return as JSON",
                         },
                         {
                             "type": "image",
